@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-export const useFetch = (url) => {
-    const [data, setData] = useState(null);
+export const useFetch = <T,> (url: string) => {
+    const [data, setData] = useState<T | null> (null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 // costom hook to handle API call, loading, error, date
@@ -16,7 +16,9 @@ export const useFetch = (url) => {
                const result = await response.json();
                setData(result); 
             } catch (err){
-                setError(err.message);
+               if (err instanceof Error) {
+          setError(err.message);
+        }
             }finally {
                 setLoading(false);
             }
