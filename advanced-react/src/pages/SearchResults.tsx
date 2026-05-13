@@ -1,5 +1,5 @@
 const SearchResults = () => {
-  return <h1>Home</h1>;
+  return <h1>SearchResults</h1>;
 };
 
 export default SearchResults;
