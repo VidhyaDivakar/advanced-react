@@ -1,3 +1,7 @@
-const { data, loading, error } = useFetch(
-    "https://www.themealdb.com/api/json/v1/1/categories.php"
-);
+
+
+const Home = () => {
+  return <h1>Home</h1>;
+};
+
+export default Home;

@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes.tsx"
-import { FavoritesProvider } from "../src/context/FavoritesContext";
-import { Navbar } from "./components/Navbar.tsx";
+//import { FavoritesContext } from "../src/context/FavoritesContext";
+//import { Navbar } from "./components/Navbar.tsx";
 
 import "./styles/global.css";
 
 function App() {
   return (
-    <FavoritesProvider>
+   // <FavoritesContext>
       <BrowserRouter>
       <div className="min-h-screen bg-gray-100 text-gray-900">
 
       </div>
       </BrowserRouter>
-    </FavoritesProvider>
+   // </FavoritesContext>
   )
   return (
     <>
