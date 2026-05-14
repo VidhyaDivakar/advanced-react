@@ -10,7 +10,7 @@ return (
     <Routes>
         <Route path="/" element={ <Home />} />
         <Route path="/category/:categoryName" element={<CategoryPage />}/>
-        <Route path="/receipe/: receipeId" element={<RecipeDetail />} />
+        <Route path="/recipe/: recipeId" element={<RecipeDetail />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path ="/search" element={<SearchResults/>} />
     </Routes>
