@@ -1,36 +1,56 @@
-import { createContext, useContext } from "react";
-import type { ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  type ReactNode,
+} from "react";
+
+import type { Meal } from "../types/mealTypes";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
-interface FavoriteContextType {
-    favorites: string[];
-    addFavorite: (id: string) => void;
-    removeFavorite: (id: string) => void;
-    isFavorite: (id: string) => boolean;
+interface FavoritesContextType<T> {
+  favorites: T[];
+  addFavorite: (item: T) => void;
+  removeFavorite: (id: string) => void;
+  isFavorite: (id: string) => boolean;
 }
 
+const FavoritesContext =
+  createContext<
+    FavoritesContextType<Meal> | undefined
+  >(undefined);
 
-const FavoritesContext = createContext<FavoriteContextType | undefined>(undefined);
+interface Props {
+  children: ReactNode;
+}
+
 export const FavoritesProvider = ({
-    children,
-}: {
-    children: ReactNode;
-}) => {
-    const [favorites, setFavorites] = useLocalStorage < string[]>(
-        "favorites",
-        [] 
-);
-const addFavorite = (id: string) => {
-    setFavorites([...favorites, id]);
-};
- const removeFavorite = (id: string) => {
-    setFavorites(
-      favorites.filter((fav) => fav !== id)
+  children,
+}: Props) => {
+  const [favorites, setFavorites] =
+    useLocalStorage<Meal[]>("favorites", []);
+
+  const addFavorite = (meal: Meal) => {
+    setFavorites((prev) => {
+      const exists = prev.some(
+        (item) => item.idMeal === meal.idMeal
+      );
+
+      if (exists) return prev;
+
+      return [...prev, meal];
+    });
+  };
+
+  const removeFavorite = (id: string) => {
+    setFavorites((prev) =>
+      prev.filter((meal) => meal.idMeal !== id)
     );
   };
 
   const isFavorite = (id: string) => {
-    return favorites.includes(id);
+    return favorites.some(
+      (meal) => meal.idMeal === id
+    );
   };
 
   return (
@@ -58,5 +78,3 @@ export const useFavorites = () => {
 
   return context;
 };
-
-export default FavoritesContext;

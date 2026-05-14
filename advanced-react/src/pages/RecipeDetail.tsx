@@ -31,7 +31,7 @@ const RecipeDetail = () => {
     return <ErrorMessage message={error} />;
   }
 
-  const meal = data?.meals[0];
+  const meal = data?.meals?.[0];
 
   if (!meal) return <h2>No Recipe Found</h2>;
 
@@ -45,6 +45,7 @@ const RecipeDetail = () => {
       ingredients.push(`${measure} ${ingredient}`);
     }
   }
+  console.log("recipeId:", recipeId);
 
   return (
     <div>
@@ -58,16 +59,16 @@ const RecipeDetail = () => {
 
       <button
         onClick={() =>
-          isFavorite(recipeId)
-            ? removeFavorite(recipeId)
-            : addFavorite(recipeId)
+          isFavorite(meal.idMeal)
+            ? removeFavorite(meal.idMeal)
+            : addFavorite(meal)
         }
       >
         {isFavorite(recipeId!)
           ? "Remove Favorite"
           : "Add Favorite"}
       </button>
-      console.log("recipeId:", recipeId);
+      
       <h2>Ingredients</h2>
 
       <ul>
